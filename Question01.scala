@@ -1,19 +1,27 @@
 package Labsheet08
+import scala.io.StdIn
 
 object Question01 {
-  val calculateInterest: Double => Double = {
-    case amount if amount <= 20000 => amount * 0.02
-    case amount if amount <= 200000 => amount * 0.04
-    case amount if amount <= 2000000 => amount * 0.035
-    case amount => amount * 0.065
+  def calculateInterest: Double => Double = (depositAmount: Double) => { //Lambda Function
+    //This is equivalent to defining a regular function, but it's assigned to a value directly.
+    val interestRate: Double = depositAmount match {
+      case amount if amount <= 20000 => 0.02
+      case amount if amount <= 200000 => 0.04
+      case amount if amount <= 2000000 => 0.035
+      case _ => 0.065
+    }
+
+    depositAmount * interestRate
   }
-
   def main(args: Array[String]): Unit = {
-    val depositAmount = 250000 // You can change this value as needed
-    val interest = calculateInterest(depositAmount)
+    //Question 01
+    println("----------------Calculating the interest---------------")
+    //val depositAmount: Double = 250000
+    println("Enter the deposited amount (in Rs.):")
+    val depositAmount: Double = StdIn.readDouble()
 
-    println(s"Deposit Amount: Rs. $depositAmount")
-    println(s"Interest Earned: Rs. $interest")
+    val interestAmount: Double = calculateInterest(depositAmount)
+    println("Interest Amount: Rs." + interestAmount)
   }
 
 }
